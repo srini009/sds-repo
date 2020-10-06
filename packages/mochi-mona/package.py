@@ -25,30 +25,30 @@
 from spack import *
 
 
-class MochiAbtIo(AutotoolsPackage):
-    """a Mochi library that provides Argobots bindings to POSIX I/O functions."""
+class MochiMona(CMakePackage):
+    """A library that provides Argobots bindings to Mercury's underlying
+    NA communication library for use in the context of Mochi projects."""
 
-    homepage = 'https://xgitlab.cels.anl.gov/sds/abt-io'
-    git = 'https://xgitlab.cels.anl.gov/sds/abt-io.git'
+    homepage = 'https://xgitlab.cels.anl.gov/sds/mona'
+    git = 'https://xgitlab.cels.anl.gov/sds/mona.git'
 
-    version('0.4.1', tag='v0.4.1', preferred=True)
-    version('0.4', tag='v0.4')
-    version('0.3.1', tag='v0.3.1')
-    version('0.3', tag='v0.3')
-    version('0.2', tag='v0.2')
-    version('0.1', tag='v0.1')
+    version('master', branch='master', preferred=True)
     version('develop', branch='master')
-    version('master', branch='master')
 
-    #depends_on('argobots@1.0:')
-    depends_on('argobots@main')
-    depends_on('autoconf@2.67:')
-    depends_on('mochi-cfg@0.1:', when='@0.4:')
-    depends_on('m4', type=("build"))
-    depends_on('automake', type=("build"))
-    depends_on('libtool', type=("build"))
-    depends_on('pkg-config', type=("build"))
-    depends_on('openssl', type=("build", "link", "run"))
+    variant('benchmark', default=False,
+            description='Build a benchmark to compare performance against MPI')
+
+    depends_on('cmake@3.14:', type=('build'))
+    depends_on('argobots@1.0:', type=("build", "link", "run"))
+    depends_on('mercury@2.0.0a1:', type=("build", "link", "run"))
+    depends_on('mpi', when='+benchmark', type=("build", "link", "run"))
 
     # dependencies for develop version
-    depends_on('mochi-cfg@develop', when='@develop')
+    depends_on('mercury@master', type=("build", "link", "run"), when='@develop')
+
+    def cmake_args(self):
+        args = ['-DBUILD_SHARED_LIBS:BOOL=ON']
+        if '+benchmark' in self.spec:
+            args.append('-DENABLE_BENCHMARK:BOOL=ON')
+            args.append('-DCMAKE_C_COMPILER=%s' % self.spec['mpi'].mpicc)
+        return args
