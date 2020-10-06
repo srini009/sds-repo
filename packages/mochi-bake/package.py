@@ -44,7 +44,7 @@ class MochiBake(AutotoolsPackage):
     depends_on('mpi', when='+benchmark')
 
     # dependencies for develop version
-    depends_on('mochi-margo@develop', when='@develop')
+    depends_on('mochi-margo@develop-test', when='@develop')
     depends_on('mochi-remi@develop', when='+remi @develop')
     depends_on('mochi-abt-io@develop', when='@develop')
 
