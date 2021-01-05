@@ -39,6 +39,7 @@ class PyMochiSsg(PythonPackage):
     
     version('develop',  branch='master')
     version('master',  branch='master')
+    version('dev-new-ssg-api', branch='dev-new-ssg-api')
     version('0.1.2', tag='v0.1.2')
     version('0.1.1', tag='v0.1.1')
     version('0.1', tag='v0.1')
@@ -52,10 +53,13 @@ class PyMochiSsg(PythonPackage):
     
     depends_on('mochi-ssg+mpi@0.4.1:', when='@0.1.2: +mpi')
     depends_on('mochi-ssg@0.4.1:', when='@0.1.2: ~mpi')
-    depends_on('mochi-ssg+mpi@0.1:0.2', when='@:0.1.1 +mpi')
-    depends_on('mochi-ssg@0.1:0.2', when='@:0.1.1 ~mpi')
+    depends_on('mochi-ssg+mpi@0.1:0.2', when='@0.1:0.1.1 +mpi')
+    depends_on('mochi-ssg@0.1:0.2', when='@0.1:0.1.1 ~mpi')
     depends_on('py-mochi-margo@0.1:')
 
     depends_on('mochi-ssg+mpi@develop', when='+mpi @develop')
     depends_on('mochi-ssg@develop', when='~mpi @develop')
     depends_on('py-mochi-margo@develop', when='@develop')
+
+    depends_on('mochi-ssg+mpi@dev-error-codes', when='+mpi @dev-new-ssg-api')
+    depends_on('mochi-ssg@dev-error-codes', when='~mpi @dev-new-ssg-api')

@@ -25,21 +25,19 @@
 from spack import *
 
 
-class PyMochiSonata(PythonPackage):
-    """Python wrapper for the Mochi Sonata library"""
+class PyMochiBedrock(PythonPackage):
+    """Mochi Bedrock's Python library and wrapper."""
 
-    homepage = "https://xgitlab.cels.anl.gov/sds/py-sonata"
-    url      = "https://xgitlab.cels.anl.gov/sds/py-sonata.git"
-    git      = "https://xgitlab.cels.anl.gov/sds/py-sonata.git"
+    homepage = "https://xgitlab.cels.anl.gov/sds/py-bedrock"
+    url      = "https://xgitlab.cels.anl.gov/sds/py-bedrock.git"
+    git      = "https://xgitlab.cels.anl.gov/sds/py-bedrock.git"
 
     version('develop', branch="master")
-    version('master', branch="master")
-    version('0.1.2', tag='v0.1.2')
-    version('0.1.1', tag='v0.1.1')
-    version('0.1', tag='v0.1')
+    version('master', branch="master", preferred=True)
 
     depends_on('python')
     depends_on('py-pkgconfig', type=('build'))
     depends_on('py-pybind11', type=('build'))
-    depends_on('py-mochi-margo')
-    depends_on('mochi-sonata@0.5:')
+    depends_on('py-setuptools', type=('build'))
+    depends_on('py-attrs@20.3.0:')
+    depends_on('mochi-bedrock')

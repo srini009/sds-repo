@@ -1,27 +1,8 @@
-##############################################################################
-# Copyright (c) 2013-2016, Lawrence Livermore National Security, LLC.
-# Produced at the Lawrence Livermore National Laboratory.
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
-# This file is part of Spack.
-# Created by Todd Gamblin, tgamblin@llnl.gov, All rights reserved.
-# LLNL-CODE-647188
-#
-# For details, see https://github.com/llnl/spack
-# Please also see the LICENSE file for our notice and the LGPL.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License (as
-# published by the Free Software Foundation) version 2.1, February 1999.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the IMPLIED WARRANTY OF
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the terms and
-# conditions of the GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public
-# License along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-##############################################################################
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
 from spack import *
 
 
@@ -35,10 +16,7 @@ class MochiMargo(AutotoolsPackage):
     version('develop-test', git='https://xgitlab.cels.anl.gov/sramesh/margo.git', branch='experimental')
     version('master', branch='master')
     version('develop', branch='master')
-    version('head-prio-pool', branch='carns/dev-prio-pool')
-    version('0.8.2', tag='v0.8.2')
-    version('0.8.1', tag='v0.8.1')
-    version('0.8', tag='v0.8')
+    version('0.9', tag='v0.9')
     version('0.7.2', tag='v0.7.2')
     version('0.7.1', tag='v0.7.1')
     version('0.7', tag='v0.7')
@@ -57,7 +35,7 @@ class MochiMargo(AutotoolsPackage):
     version('0.4.3', tag='v0.4.3')
     version('0.4.2', tag='v0.4.2')
 
-    depends_on('mochi-cfg@0.1:', when='@0.8:')
+    depends_on('json-c', when='@0.9:')
     depends_on('autoconf@2.65:', type=("build"))
     depends_on('m4', type=('build'))
     depends_on('automake', type=("build"))
@@ -65,9 +43,9 @@ class MochiMargo(AutotoolsPackage):
     depends_on('pkg-config', type=("build"))
     #depends_on('argobots@1.0:')
     depends_on('argobots@main')
+    # "breadcrumb" support not available in mercury-1.0
     depends_on('mercury@1.0.0:', type=("build", "link", "run"), when='@:0.5.1')
-    depends_on('mercury@2.0.0a1:', type=("build", "link", "run"), when='@0.5.2:')
+    depends_on('mercury@2.0.0:', type=("build", "link", "run"), when='@0.5.2:')
 
     # dependencies for develop version
     depends_on('mercury@master', type=("build", "link", "run"), when='@develop')
-    depends_on('mochi-cfg@develop', when='@develop')
