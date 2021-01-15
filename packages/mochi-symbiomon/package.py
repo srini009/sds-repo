@@ -14,7 +14,7 @@ class MochiSymbiomon(CMakePackage):
 
     depends_on('libuuid')
     depends_on('mochi-margo@develop')
-    depends_on('mercury@develop')
+    depends_on('mercury@master')
     depends_on('argobots@main')
     depends_on('mochi-abt-io@0.5:')
 
