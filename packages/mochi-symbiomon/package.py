@@ -20,5 +20,5 @@ class MochiSymbiomon(CMakePackage):
     depends_on('mochi-abt-io@0.5:')
 
     def cmake_args(self):
-        args = ["-DBUILD_SHARED_LIBS:BOOL=ON -DENABLE_EXAMPLES:BOOL=ON" ]
+        args = ["-DBUILD_SHARED_LIBS:BOOL=ON -DENABLE_EXAMPLES=ON" ]
         return args
