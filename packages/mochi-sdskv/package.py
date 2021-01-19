@@ -30,7 +30,8 @@ class MochiSdskv(AutotoolsPackage):
 
     homepage = "https://xgitlab.cels.anl.gov/sds/sds-keyval"
     url = "https://xgitlab.cels.anl.gov/sds/sds-keyval"
-    git='https://xgitlab.cels.anl.gov/sds/sds-keyval.git'
+    #git='https://xgitlab.cels.anl.gov/sds/sds-keyval.git'
+    git='https://github.com/srini009/sds-keyval.git'
 
     version('develop', branch='master')
     version('master', branch='master')
@@ -53,6 +54,7 @@ class MochiSdskv(AutotoolsPackage):
     variant('leveldb', default=True, description="Enable LevelDB keyval backend")
     variant('lmdb', default=False, description="Enable lmdb keyval backend")
 
+    depends_on('mochi-symbiomon@develop', when='@develop')
     depends_on('autoconf@2.65:')
     depends_on('automake@1.13.4:')
     depends_on('libtool', type=("build"))
