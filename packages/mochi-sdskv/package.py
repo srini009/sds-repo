@@ -49,12 +49,13 @@ class MochiSdskv(AutotoolsPackage):
 
     variant('benchmark', default=False, description='Compiles a benchmark')
     variant('remi', default=False, description="Enables migration support using REMI")
+    variant('symbiomon', default=False, description="Enables remote metrics monitoring")
     variant('bwtree', default=False, description="Enable BwTree keyval backend")
     variant('bdb', default=True, description="Enable Berkely DB keyval backend")
     variant('leveldb', default=True, description="Enable LevelDB keyval backend")
     variant('lmdb', default=False, description="Enable lmdb keyval backend")
 
-    depends_on('mochi-symbiomon@develop', when='@develop')
+    depends_on('mochi-symbiomon@develop', when='+symbiomon @develop')
     depends_on('autoconf@2.65:')
     depends_on('automake@1.13.4:')
     depends_on('libtool', type=("build"))
@@ -96,6 +97,10 @@ class MochiSdskv(AutotoolsPackage):
         if '+leveldb' in spec:
             extra_args.extend([
                 "--enable-leveldb"
+                ])
+        if '+symbiomon' in spec:
+            extra_args.extend([
+                "--enable-symbiomon"
                 ])
 
         if '+benchmark' in spec:
