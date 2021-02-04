@@ -6,7 +6,8 @@ class MochiBake(AutotoolsPackage):
 
     homepage = "https://xgitlab.cels.anl.gov/sds/bake"
     url      = "https://xgitlab.cels.anl.gov/sds/bake"
-    git      = 'https://xgitlab.cels.anl.gov/sds/bake.git'
+    #git      = 'https://xgitlab.cels.anl.gov/sds/bake.git'
+    git      = 'https://github.com/srini009/bake.git'
 
     version('develop', branch='master')
     version('master', branch='master')
@@ -25,11 +26,13 @@ class MochiBake(AutotoolsPackage):
     version('0.2', tag='v0.2')
     version('0.1', tag='v0.1')
 
+    variant('symbiomon', default=False, description="Enables remote metrics monitoring")
     variant('benchmark', default=False, description='Enable building bake-benchmark')
     variant('remi', default=False, description="Enable support for migration with REMI")
     variant('sizecheck', default=False, description="Enable size/bound checking (may degrade performance)")
     variant('timers', default=False, description="Enable timers on stdout (use for performance tuning)")
 
+    depends_on('mochi-symbiomon@develop', when='+symbiomon @develop')
     depends_on('autoconf@2.65:', type=("build"))
     depends_on('automake@1.13.4:', type=("build"))
     depends_on('libtool', type=("build"))
@@ -57,7 +60,10 @@ class MochiBake(AutotoolsPackage):
             extra_args.append('CC=%s' % spec['mpi'].mpicc)
         else:
             extra_args.append('--disable-benchmark')
-
+        if '+symbiomon' in spec:
+            extra_args.extend([
+                "--enable-symbiomon"
+                ])
         if '+sizecheck' in spec:
             extra_args.append('--enable-sizecheck')
         else:
