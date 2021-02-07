@@ -43,7 +43,8 @@ class MochiSsg(AutotoolsPackage):
 
     depends_on('mochi-margo@0.4:')
     depends_on('mochi-margo@0.6:', when='@0.4.1:')
-    depends_on('mochi-margo@develop-test', when='@develop')
+    #depends_on('mochi-margo@develop-test', when='@develop')
+    depends_on('mochi-margo@develop', when='@develop')
 
     def configure_args(self):
         spec = self.spec

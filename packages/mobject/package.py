@@ -30,7 +30,8 @@ class Mobject(AutotoolsPackage):
 
     homepage = "https://xgitlab.cels.anl.gov/sds/mobject-store"
     url = "https://xgitlab.cels.anl.gov/sds/mobject-store"
-    git = 'https://xgitlab.cels.anl.gov/sds/mobject-store.git'
+    #git = 'https://xgitlab.cels.anl.gov/sds/mobject-store.git'
+    git = 'https://github.com/srini009/mobject-store.git'
 
     version('0.4.2', tag='v0.4.2')
     version('0.4.1', tag='v0.4.1')
@@ -64,6 +65,7 @@ class Mobject(AutotoolsPackage):
     depends_on('mochi-ch-placement@develop', when='@develop')
     depends_on('mochi-sdskv@develop', when='@develop')
     depends_on('mochi-bake@develop', when='@develop')
+    depends_on('mochi-symbiomon@develop', when='@develop')
 
     patch('0001-crude-timing-information.patch', when="+timing")
 
