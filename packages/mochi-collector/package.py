@@ -21,5 +21,5 @@ class MochiCollector(CMakePackage):
     depends_on('mochi-abt-io@develop')
 
     def cmake_args(self):
-        args = ["-DBUILD_SHARED_LIBS:BOOL=ON -DENABLE_EXAMPLES=ON" ]
+        args = ["-DBUILD_SHARED_LIBS:BOOL=ON -DENABLE_EXAMPLES=ON -DCMAKE_C_FLAGS='-DUSE_AGGREGATOR'" ]
         return args
