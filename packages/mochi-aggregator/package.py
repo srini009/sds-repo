@@ -16,6 +16,7 @@ class MochiAggregator(CMakePackage):
     depends_on('mochi-margo@develop')
     depends_on('mercury@master')
     #depends_on('argobots@main')
+    depends_on('mpi')
     depends_on('argobots@1.0:')
     depends_on('mochi-abt-io@develop')
 
