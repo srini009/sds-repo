@@ -22,5 +22,5 @@ class MochiAggregator(CMakePackage):
 
     def cmake_args(self):
         args = ["-DBUILD_SHARED_LIBS:BOOL=ON -DENABLE_EXAMPLES=ON" ]
-        args.append('-DCMAKE_CXX_COMPILER=%s' % self.spec['mpi'].mpicxx)
+        args.append('-DCMAKE_C_COMPILER=%s' % self.spec['mpi'].mpicc)
         return args
