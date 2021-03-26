@@ -19,7 +19,7 @@ class MochiSymbiomon(CMakePackage):
     depends_on('mercury@master')
     #depends_on('argobots@main')
     depends_on('argobots@1.0:')
-    depends_on('mochi-develop@develop', when='+aggregator')
+    depends_on('mochi-sdskv@develop', when='+aggregator')
     depends_on('mochi-abt-io@develop')
 
     def cmake_args(self):
