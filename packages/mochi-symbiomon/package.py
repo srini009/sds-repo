@@ -12,7 +12,7 @@ class MochiSymbiomon(CMakePackage):
 
     version('develop', branch='master')
 
-    variant('aggregator', default=True, description='Aggregate time-series data')
+    variant('aggregator', default=False, description='Aggregate time-series data')
 
     depends_on('libuuid')
     depends_on('mochi-margo@develop')
