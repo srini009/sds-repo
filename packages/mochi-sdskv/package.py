@@ -48,6 +48,7 @@ class MochiSdskv(AutotoolsPackage):
     version('0.1', tag='v0.1')
 
     variant('benchmark', default=False, description='Compiles a benchmark')
+    variant('aggrservice', default=False, description='Compiles an MPI-based SDSKV aggr service')
     variant('remi', default=False, description="Enables migration support using REMI")
     variant('symbiomon', default=False, description="Enables remote metrics monitoring")
     variant('bwtree', default=False, description="Enable BwTree keyval backend")
@@ -61,6 +62,7 @@ class MochiSdskv(AutotoolsPackage):
     depends_on('libtool', type=("build"))
     depends_on('jsoncpp@1.9.1:', when='+benchmark')
     depends_on('mpi', when='+benchmark')
+    depends_on('mpi', when='+aggrservice @develop')
     depends_on('mochi-margo@0.4:', type=("build", "link", "run"), when='@:0.1.3')
     depends_on('mochi-margo@0.5.2:', type=("build", "link", "run"), when='@0.1.4:')
     depends_on('mochi-abt-io', type=("build", "link", "run"))
@@ -108,6 +110,12 @@ class MochiSdskv(AutotoolsPackage):
             extra_args.append('CXX=%s' % spec['mpi'].mpicxx)
         else:
             extra_args.append('--disable-benchmark')
+
+        if '+aggrservice' in spec:
+            extra_args.append('--enable-aggr-service')
+            extra_args.append('CXX=%s' % spec['mpi'].mpicxx)
+        else:
+            extra_args.append('--disable-aggr-service')
 
         if spec.satisfies('@0.1.4:'):
             if '+remi' in spec:
