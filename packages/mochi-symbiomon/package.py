@@ -13,6 +13,8 @@ class MochiSymbiomon(CMakePackage):
     version('develop', branch='master')
 
     variant('aggregator', default=False, description='Aggregate time-series data')
+    variant('reducer', default=False, description='Reduce time-series data')
+    variant('bedrock', default=False, description='Enable building of the bedrock module')
 
     depends_on('libuuid')
     depends_on('mochi-margo@develop')
@@ -21,9 +23,15 @@ class MochiSymbiomon(CMakePackage):
     depends_on('argobots@1.0:')
     depends_on('mochi-sdskv@develop', when='+aggregator')
     depends_on('mochi-abt-io@develop')
+    depends_on('mochi-bedrock@develop', when='+bedrock')
+    depends_on('mochi-reducer@develop', when='+reducer')
 
     def cmake_args(self):
         args = ["-DBUILD_SHARED_LIBS:BOOL=ON -DENABLE_EXAMPLES=ON" ]
         if '+aggregator' in self.spec:
             args.append('-DENABLE_AGGREGATOR=ON')
+        if '+reducer' in self.spec:
+            args.append('-DENABLE_REDUCER=ON')
+        if '+bedrock' in self.spec:
+            args.append('-DENABLE_BEDROCK=ON')
         return args
